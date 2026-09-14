@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: node-app
-          image: b00mgr3rt/devopschallenge1:${IMAGE_TAG}
+          image: b00mgr3rt/devopschallenge1:latest
           ports:
             - containerPort: 3000
