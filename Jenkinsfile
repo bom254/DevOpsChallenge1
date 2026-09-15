@@ -36,29 +36,29 @@ pipeline {
                 sh 'trivy image --severity HIGH,CRITICAL --no-progress --skip-update --format table -o trivy-scan-report.txt ${DOCKER_HUB_REPO}:latest'
             }
         }
-        stage('Push Image to DockerHub'){
-            steps {
-                script {
-                    echo 'pushing docker image to DockerHub...'
-                    docker.withRegistry('https://registry.hub.docker.com', "${DOCKER_HUB_CREDENTIALS_ID}"){
-                        dockerImage.push('latest')
-                    }
-                }
-            }
-        }
-        stage('Install Kubectl & ArgoCd'){
-            steps {
-                sh '''
-                echo 'installing Kubectl & ArgoCd...'
-                curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-                chmod +x kubectl
-                mv kubectl /usr/local/bin/kubectl
-                curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-                chmod +x argocd
-                mv argocd /usr/local/bin/argocd
-                '''
-            }
-        }
+        // stage('Push Image to DockerHub'){
+        //     steps {
+        //         script {
+        //             echo 'pushing docker image to DockerHub...'
+        //             docker.withRegistry('https://registry.hub.docker.com', "${DOCKER_HUB_CREDENTIALS_ID}"){
+        //                 dockerImage.push('latest')
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Install Kubectl & ArgoCd'){
+        //     steps {
+        //         sh '''
+        //         echo 'installing Kubectl & ArgoCd...'
+        //         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+        //         chmod +x kubectl
+        //         mv kubectl /usr/local/bin/kubectl
+        //         curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+        //         chmod +x argocd
+        //         mv argocd /usr/local/bin/argocd
+        //         '''
+        //     }
+        // }
     }
     post {
         always {
