@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Checkout Github'){
             steps {
-                git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/bom254/DevOpsChallenge1.git'
+               git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/bom254/DevOpsChallenge1.git'
             }
         }
 
@@ -29,6 +29,17 @@ pipeline {
                     echo 'building docker image...'
                     dockerImage = docker.build("${DOCKER_HUB_REPO}:latest")
                 }
+            }
+        }
+        stage('Trivy Scan'){
+            steps {
+                sh 'docker run --rm \
+                            -v /var/run/docker.sock:/var/run/docker.sock \
+                            aquasec/trivy:latest image \
+                            --severity HIGH,CRITICAL \
+                            --exit-code 1 \
+                            --ignore-unfixed \
+                            ${DOCKER_HUB_REPO}:latest'
             }
         }
     }
