@@ -36,6 +36,16 @@ pipeline {
                 sh 'trivy image --severity HIGH,CRITICAL --no-progress --skip-update --format table -o trivy-scan-report.txt ${DOCKER_HUB_REPO}:latest'
             }
         }
+        stage('Push Image to DockerHub'){
+            steps {
+                script {
+                    echo 'pushing docker image to DockerHub...'
+                    docker.withRegistry('https://registry.hub.docker.com', "${DOCKER_HUB_CREDENTIALS_ID}"){
+                        dockerImage.push('latest')
+                    }
+                }
+            }
+        }
     }
     post {
         success {
