@@ -1,3 +1,6 @@
 pipeline {
-    ha
+    agent any
+    tools {
+        nodejs 'NodeJS'
+    }
 }
