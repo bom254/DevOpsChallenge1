@@ -33,7 +33,7 @@ pipeline {
         }
         stage('Trivy Scan'){
             steps {
-                sh 'trivy image --severity HIGH,CRITICAL --no-progress --skip-update --formate table -o trivy-scan-report.txt ${DOCKER_HUB_REPO}:latest'
+                sh 'trivy image --severity HIGH,CRITICAL --no-progress --skip-update --format table -o trivy-scan-report.txt ${DOCKER_HUB_REPO}:latest'
             }
         }
     }
