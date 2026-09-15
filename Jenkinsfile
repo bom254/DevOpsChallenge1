@@ -23,8 +23,13 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Build depe'){
-            
+        stage('Build Docker Image'){
+            steps {
+                script {
+                    echo 'building docker image...'
+                    dockerImage = docker.build("${DOCKER_HUB_REPO}:latest")
+                }
+            }
         }
     }
 }
