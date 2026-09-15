@@ -23,8 +23,8 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage(){
-            hh
+        stage('Build'){
+            
         }
     }
 }
