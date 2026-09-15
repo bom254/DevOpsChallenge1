@@ -23,7 +23,7 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Build'){
+        stage('Build depe'){
             
         }
     }
