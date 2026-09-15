@@ -20,7 +20,7 @@ pipeline {
                 sh '''
                 echo 'installing node dependencies...'
                 '''
-                sh 'npm install'
+                sh 'npm install'.
             }
         }
     }
