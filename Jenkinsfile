@@ -37,6 +37,10 @@ pipeline {
                             -v /var/run/docker.sock:/var/run/docker.sock \
                             aquasec/trivy:latest image \
                             --severity HIGH,CRITICAL \
+                            --no-progress \
+                            --skip-update \
+                            --formart table \
+                            -o trivy-scan-report.txt \
                             --exit-code 1 \
                             --ignore-unfixed \
                             ${DOCKER_HUB_REPO}:latest'
