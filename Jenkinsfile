@@ -43,4 +43,12 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            echo 'Build & Deploy completed successfully!'
+        }
+        failure {
+            echo 'Build & Deploy failed. Check logs.'
+        }
+    }
 }
