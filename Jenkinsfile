@@ -3,4 +3,11 @@ pipeline {
     tools {
         nodejs 'NodeJS'
     }
+
+    environment {
+
+    }
+    stages {
+        
+    }
 }
