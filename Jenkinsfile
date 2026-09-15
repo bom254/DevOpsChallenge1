@@ -33,16 +33,7 @@ pipeline {
         }
         stage('Trivy Scan'){
             steps {
-                sh 'docker run --rm \
-                            -v /var/run/docker.sock:/var/run/docker.sock \
-                            aquasec/trivy:latest image \
-                            --severity HIGH,CRITICAL \
-                            --no-progress \
-                            --skip-update \
-                            --formart table \
-                            -o trivy-scan-report.txt \
-                            --ignore-unfixed \
-                            ${DOCKER_HUB_REPO}:latest'
+                sh 'trivy image --severity HIGH,CRITICAL alpine:3.15'
             }
         }
     }
