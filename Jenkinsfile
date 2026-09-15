@@ -8,6 +8,6 @@ pipeline {
 
     }
     stages {
-        he
+        her
     }
 }
