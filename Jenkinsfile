@@ -63,8 +63,11 @@ pipeline {
                 script {
                     kubeconfig(credentialsId: 'kubeconfig', serverUrl: 'https://192.168.49.2:8443'){
                         sh '''
-                        argocd login 192.168.49.1:30949 --username admin --password $(kubectl get secret -n argocd argocd-initial-p secret -o jsonpath="{.data.password}" | base64 -d) --insecure
-                        argocd app sync argocdjenkins
+                        kubectl port-forward svc/argocd-server -n argocd 30949:443 &
+                        sleep 5
+                        argocd login 192.168.49.1:30949 --username admin --password $(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d) --insecure
+                        argocd app sync node-app
+                        pkill -f "kubectl port-forward"
                         '''
                     }
                 }
