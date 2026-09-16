@@ -27,13 +27,13 @@ pipeline {
             steps {
                 script {
                     echo 'building docker image...'
-                    def dockerImage = docker.build("${DOCKER_HUB_REPO}:latest")
+                    dockerImage = docker.build("${DOCKER_HUB_REPO}:latest")
                 }
             }
         }
         stage('Trivy Scan'){
             steps {
-                sh 'trivy image --severity HIGH,CRITICAL --no-progress --skip-update --format table -o trivy-scan-report.txt ${DOCKER_HUB_REPO}:latest'
+                sh 'trivy image --severity HIGH,CRITICAL --no-progress --skip-db-update --format table -o trivy-scan-report.txt ${DOCKER_HUB_REPO}:latest'
             }
         }
         stage('Push Image to DockerHub'){
