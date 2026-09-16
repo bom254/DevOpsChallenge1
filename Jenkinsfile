@@ -61,9 +61,9 @@ pipeline {
         stage('Apply Kubernetes Manifests & Sync App with ArgoCD'){
             steps {
                 script {
-                    kubeconfig(credentialsId: 'kubeconfig', serverUrl: 'https://nonimperialistic-hallie-benmost.ngrok-free.dev:8443'){
+                    kubeconfig(credentialsId: 'kubeconfig', serverUrl: 'https://192.168.49.2:8443'){
                         sh '''
-                        argocd login 192.168.49.1:30949 --username admin --password $(kubectl get secret -n argocd argocd-initial-psecret -o jsonpath="{.data.password}" | base64 -d) --insecure
+                        argocd login 192.168.49.1:30949 --username admin --password $(kubectl get secret -n argocd argocd-initial-p secret -o jsonpath="{.data.password}" | base64 -d) --insecure
                         argocd app sync argocdjenkins
                         '''
                     }
